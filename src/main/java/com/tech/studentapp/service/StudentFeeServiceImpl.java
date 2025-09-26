@@ -16,7 +16,6 @@ public class StudentFeeServiceImpl implements StudentFeeService {
     private final StudentRepository studentRepo;
     private final StudentFeeRepository studentFeeRepo;
 
-
     public StudentFeeServiceImpl(StudentRepository studentRepo, StudentFeeRepository studentFeeRepo) {
         this.studentRepo = studentRepo;
         this.studentFeeRepo = studentFeeRepo;
