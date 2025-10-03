@@ -19,4 +19,8 @@ private String paymentStatus;
 @OneToOne
 @JoinColumn(name="student_id",referencedColumnName = "id")
 private Student student;
+
+    public Long getStudentId() {
+        return student != null ? student.getId() : null;
+    }
 }

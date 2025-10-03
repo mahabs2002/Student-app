@@ -8,6 +8,8 @@ import com.tech.studentapp.service.StudentFeeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/fees")
 public class StudentFeeController {
@@ -19,8 +21,8 @@ public class StudentFeeController {
     }
 
     @PostMapping("/savefee")
-    public ResponseEntity<StudentFee> createFee(@RequestBody StudentFeeRequest feeRequest){
-        StudentFee fee=feeService.createFee(feeRequest);
+    public ResponseEntity<List<StudentFee>> createFee(@RequestBody List<StudentFeeRequest> feeRequest){
+        List<StudentFee> fee=feeService.createFee(feeRequest);
         return ResponseEntity.ok(fee);
     }
 

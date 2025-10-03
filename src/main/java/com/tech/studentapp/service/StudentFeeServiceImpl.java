@@ -10,6 +10,9 @@ import com.tech.studentapp.repository.StudentFeeRepository;
 import com.tech.studentapp.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class StudentFeeServiceImpl implements StudentFeeService {
 
@@ -23,16 +26,22 @@ public class StudentFeeServiceImpl implements StudentFeeService {
 
 
     @Override
-    public StudentFee createFee(StudentFeeRequest feeRequest) {
-        Student student=studentRepo.findById(feeRequest.getStudentId()).orElseThrow(()->
-                new RuntimeException("Student not found"));
+    public List<StudentFee> createFee(List<StudentFeeRequest> feeRequest) {
 
-        StudentFee fee=new StudentFee();
-        fee.setRegNo(feeRequest.getRegNo());
-        fee.setFees(feeRequest.getFees());
-        fee.setPaymentStatus(feeRequest.getPaymentStatus());
-        fee.setStudent(student);
-        return studentFeeRepo.save(fee);
+        List<StudentFee> savedFee=new ArrayList<>();
+        for (StudentFeeRequest feeRequests:feeRequest) {
+            Student student = studentRepo.findById(feeRequests.getStudentId())
+                    .orElseThrow(() -> new RuntimeException("Student not found: ID " + feeRequests.getStudentId()));
+
+
+            StudentFee fee = new StudentFee();
+            fee.setRegNo(feeRequests.getRegNo());
+            fee.setFees(feeRequests.getFees());
+            fee.setPaymentStatus(feeRequests.getPaymentStatus());
+            fee.setStudent(student);
+            savedFee.add(studentFeeRepo.save(fee));
+        }
+        return savedFee;
     }
 
     @Override
