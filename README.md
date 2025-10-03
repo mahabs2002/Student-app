@@ -1,24 +1,50 @@
-# Student Management System
+# 🎓 Student Management System
 
-A **Student Management Application** built with **Spring Boot** and **Maven**, designed to manage student records and fees efficiently. It provides full **CRUD functionality** for student data and fee management.
+A **Spring Boot-based Student Management Application** that allows users to manage student records, handle fee payments, and generate **PDF reports using JasperReports**.
 
-## Features
+---
 
-- **Student CRUD Operations**
-  - Add new student details (name, age, course, contact info)
-  - View all students or search by ID/name
-  - Update existing student details
-  - Delete student records
+##  Features
 
-- **Fee Management**
-  - Add and manage student fees
-  - Update fee payments
-  - Track total fees paid and pending amounts
-  - View fee history per student
+###  Student Management
+- Add, View, Update, and Delete Students
+- Search Students by ID or Name
 
-- **Technology Stack**
-  - Spring Boot
-  - Maven
-  - Spring Data JPA
-  - H2/MySQL Database
-  - RESTful APIs
+###  Fee Management
+- Add and Update Student Fees
+- Track Pending and Paid Fees
+- View Fee History Per Student
+
+### 📄 PDF Reporting (JasperReports)
+- Generate **Student Fee Summary Report**
+- Export **Individual or Bulk Fee Reports**
+- Download Directly via REST API
+
+---
+
+## 🛠 Tech Stack
+
+| Layer       | Technology |
+|-------------|------------|
+| Backend     | Spring Boot |
+| Database    | H2 / MySQL |
+| ORM         | Spring Data JPA |
+| Build Tool  | Maven |
+| Reporting   | JasperReports |
+
+---
+
+## 📦 Dependencies (Add to `pom.xml`)
+
+```xml
+<dependency>
+    <groupId>net.sf.jasperreports</groupId>
+    <artifactId>jasperreports</artifactId>
+    <version>7.0.3</version>
+</dependency>
+
+<dependency>
+    <groupId>net.sf.jasperreports</groupId>
+    <artifactId>jasperreports-pdf</artifactId>
+    <version>7.0.3</version>
+</dependency>
