@@ -59,6 +59,10 @@ return  response;
         return studentRepo.saveAll(student);
     }
 
+
+
+
+
     @Override
     public Student updateStudent(Long id, Student updatestudent) {
         return studentRepo.findById(id).map(stu ->{
@@ -86,6 +90,8 @@ return  response;
     }
 
 
-
+ private boolean validateStudentName(String name){
+     return name!=null && !name.isEmpty();
+ }
 
 }
