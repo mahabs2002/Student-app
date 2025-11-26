@@ -2,11 +2,17 @@ package com.tech.studentapp.service;
 
 import com.tech.studentapp.entity.Student;
 import com.tech.studentapp.entity.StudentFee;
+import com.tech.studentapp.exception.StudentNotFoundException;
+import com.tech.studentapp.model.ErrorResponse;
 import com.tech.studentapp.model.StudentDetailResponse;
 import com.tech.studentapp.model.StudentResponse;
 import com.tech.studentapp.repository.StudentRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 @Service
 public class StudentServiceImpl implements  StudentService{
@@ -26,29 +32,30 @@ public class StudentServiceImpl implements  StudentService{
     @Override
     public StudentResponse getStudentById(Long id) {
        // return studentRepo.findById(id).orElse(null);
+    Student student = studentRepo.findById(id).orElseThrow(() -> new StudentNotFoundException("Student not found " + id));
+    StudentResponse response = new StudentResponse();
+    response.setId(student.getId());
+    response.setStudentName(student.getStudentName());
+    response.setDoj(student.getDoj());
+    response.setDoe(student.getDoe());
+    response.setLpa(student.getLpa());
+    response.setPlacedCompany(student.getPlacedCompany());
 
-        Student student= studentRepo.findById(id).orElse(null);
-        StudentResponse response=new StudentResponse();
-        response.setId(student.getId());
-        response.setStudentName(student.getStudentName());
-        response.setDoj(student.getDoj());
-        response.setDoe(student.getDoe());
-        response.setLpa(student.getLpa());
-        response.setPlacedCompany(student.getPlacedCompany());
+    if (student.getStudentDetails() != null) {
+        StudentDetailResponse res = new StudentDetailResponse();
+        res.setId(student.getStudentDetails().getId());
+        res.setRegNo(student.getStudentDetails().getRegNo());
+        res.setRegNo(student.getStudentDetails().getRegNo());
+        res.setCity(student.getStudentDetails().getCity());
+        res.setCgpa(student.getStudentDetails().getCgpa());
+        res.setDepartment(student.getStudentDetails().getDepartment());
 
-        if(student.getStudentDetails()!=null){
-            StudentDetailResponse res=new StudentDetailResponse();
-            res.setId(student.getStudentDetails().getId());
-            res.setRegNo(student.getStudentDetails().getRegNo());
-            res.setRegNo(student.getStudentDetails().getRegNo());
-           res.setCity(student.getStudentDetails().getCity());
-            res.setCgpa(student.getStudentDetails().getCgpa());
-            res.setDepartment(student.getStudentDetails().getDepartment());
-
-            response.setStudentDetailResponse(res);
-        }
-return  response;
+        response.setStudentDetailResponse(res);
     }
+        return response;
+
+    }
+
 
     @Override
     public List<Student> saveStudent(List<Student> student) {
