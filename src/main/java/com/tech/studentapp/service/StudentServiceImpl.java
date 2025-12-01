@@ -64,6 +64,7 @@ public class StudentServiceImpl implements  StudentService{
             stu.getStudentDetails().setStudent(stu);
             }
         });
+        System.out.println("Successfully Added");
         return studentRepo.saveAll(student);
     }
 
