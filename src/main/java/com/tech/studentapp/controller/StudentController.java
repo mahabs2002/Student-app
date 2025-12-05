@@ -1,8 +1,7 @@
 package com.tech.studentapp.controller;
 
 import com.tech.studentapp.entity.Student;
-import com.tech.studentapp.model.StudentRequest;
-import com.tech.studentapp.model.StudentResponse;
+import com.tech.studentapp.model.*;
 import com.tech.studentapp.service.StudentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,10 +23,20 @@ public class StudentController {
         return  studentService.getAllStudents();
     }
 
+    @PostMapping("/pagination")
+    public  List<StudResponse> getAllStudentPagination(@RequestBody PaginationRequest paginationRequest){
+        return studentService.getStudentPagination(paginationRequest.getPage(),paginationRequest.getSize());
+    }
+
     @GetMapping("/getStudent")
     public StudentResponse getStudentById(@RequestBody StudentRequest studentRequest){
         return studentService.getStudentById(studentRequest.getId());
 
+    }
+
+    @PostMapping("/getStudentByDep")
+    public List<StudentResponse> getStudByDep(@RequestBody DepartmentRequest departmentRequest){
+        return studentService.getStudentByDepartment(departmentRequest.getDepartment());
     }
 
     @PostMapping("/savestud")
