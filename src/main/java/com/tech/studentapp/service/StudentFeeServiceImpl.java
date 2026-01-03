@@ -105,5 +105,14 @@ public class StudentFeeServiceImpl implements StudentFeeService {
                 orElseThrow(()->new RuntimeException("id not found"));
     }
 
+    @Override
+    public void markIneligibleStudent() {
+        List<StudentFee> pendingFees=studentFeeRepo.findByPaymentStatus("Pending");
+        for(StudentFee fee:pendingFees){
+            fee.setPaymentStatus("INELIGIBLE");
+        }
+        studentFeeRepo.saveAll(pendingFees);
+    }
+
 
 }

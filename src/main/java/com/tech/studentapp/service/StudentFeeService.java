@@ -16,4 +16,6 @@ public interface StudentFeeService {
 
     void deleteFee(Long id);
     StudentFee getStudentFeeById(Long id);
+
+    void markIneligibleStudent();
 }
